@@ -1,4 +1,4 @@
-# JobHub
+# JobFinder
 
 A pure HTML job portal template (No CSS, No JS).
 
