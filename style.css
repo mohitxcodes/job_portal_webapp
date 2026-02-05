@@ -1,0 +1,470 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: darkslategray;
+  line-height: 1.5;
+  background-color: white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.section {
+  padding: 48px 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 50px; /* Pill shape */
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: royalblue;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: mediumblue;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: coral;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: orangered;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  border: 1px solid lightgray;
+  background: transparent;
+  color: darkslategray;
+}
+
+.btn-outline:hover {
+  border-color: royalblue;
+  color: royalblue;
+}
+
+.header {
+  background-color: white;
+  padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: royalblue;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  font-weight: 600;
+  color: dimgray;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  color: royalblue;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.divider {
+  color: lightgray;
+}
+
+.employer-link {
+  color: dimgray;
+  font-weight: 500;
+}
+
+.employer-link:hover {
+  color: royalblue;
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: whitesmoke;
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 48px;
+  color: darkslategray;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: dimgray;
+  margin-bottom: 60px;
+}
+
+/* Search Box */
+.search-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.search-field {
+  flex: 1;
+  text-align: left;
+}
+
+.search-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: darkgray;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.search-field input,
+.search-field select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  padding: 8px 0;
+  font-size: 16px;
+  color: darkslategray;
+  outline: none;
+  font-family: inherit;
+  background: transparent;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+  border-bottom-color: royalblue;
+}
+
+.search-btn {
+  padding: 12px 40px;
+  font-size: 16px;
+}
+
+/* Categories Section */
+.categories-section {
+  padding: 40px 0;
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+}
+
+.categories-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.category-card {
+  flex: 1;
+  background: whitesmoke;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-card:hover {
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.category-card .icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.category-card .label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Featured Jobs */
+.featured-jobs {
+  background-color: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 48px;
+  color: darkslategray;
+}
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.job-card {
+  border: 1px solid lightgray;
+  padding: 24px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.job-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+  transform: translateY(-4px);
+}
+
+.job-title {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.company-name {
+  color: dimgray;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.job-details {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: darkslategray;
+  margin-bottom: 16px;
+}
+
+.job-skills {
+  color: dimgray;
+  font-size: 13px;
+}
+
+/* Services Section */
+.services-section {
+  background-color: white;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  border: 1px solid lightgray;
+  padding: 32px;
+  border-radius: 12px;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.service-title {
+  font-size: 20px;
+  color: royalblue;
+  margin-bottom: 16px;
+}
+
+.service-desc {
+  color: dimgray;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.service-link {
+  color: coral;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.service-link:hover {
+  color: orangered;
+}
+
+/* App Download Section */
+.app-section {
+  padding: 0;
+  margin: 48px 0;
+}
+
+.app-banner {
+  background-color: aliceblue;
+  border-radius: 12px;
+  padding: 60px;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.app-subtitle {
+  color: dimgray;
+  margin-bottom: 24px;
+}
+
+.app-btn {
+  background: black;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.app-btn:hover {
+  background: darkslategray;
+}
+
+/* Footer */
+.footer {
+  background-color: darkslategray;
+  color: white;
+  padding: 60px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+.footer-brand {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.footer-text {
+  color: silver;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.social-links a {
+  color: silver;
+  font-size: 14px;
+}
+
+.social-links a:hover {
+  color: white;
+}
+
+.footer-heading {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  color: silver;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid gray;
+  padding-top: 20px;
+  font-size: 13px;
+  color: silver;
+}
