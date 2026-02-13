@@ -11,7 +11,6 @@
     />
   </head>
   <body>
-    <!-- Header -->
     <header class="header">
       <div class="container header-container">
         <div class="logo">JobFinder</div>
@@ -22,8 +21,8 @@
           <a href="#">Resources</a>
         </nav>
         <div class="auth-buttons">
-          <button class="btn btn-outline">Login</button>
-          <button class="btn btn-secondary">Register</button>
+          <!-- <button class="btn btn-outline">Login</button> -->
+          <!-- <button class="btn btn-secondary">Register</button> -->
           <span class="divider">|</span>
           <a href="#" class="employer-link">For Employers</a>
         </div>
@@ -32,13 +31,18 @@
 
     <div class="divider-line"></div>
 
-    <!-- Hero Section -->
     <section class="hero-section text-center">
       <div class="container">
         <h1 class="hero-title">Find your dream job now</h1>
         <p class="hero-subtitle">5 lakh+ jobs for you to explore</p>
 
-        <!-- Search Box -->
+        <div class="hero-buttons">
+          <button id="open-post-job-modal" class="btn btn-secondary hero-btn">
+            + Post a Job
+          </button>
+          <button class="btn btn-outline hero-btn">See All Jobs</button>
+        </div>
+
         <div class="search-box">
           <div class="search-field">
             <label>Skill, Designations, Companies</label>
@@ -63,7 +67,6 @@
       </div>
     </section>
 
-    <!-- Categories / Stats -->
     <section class="categories-section">
       <div class="container">
         <div class="categories-grid">
@@ -95,85 +98,29 @@
       </div>
     </section>
 
-    <!-- Featured Jobs -->
     <section class="section featured-jobs">
       <div class="container">
         <h2 class="section-title text-center">Featured Jobs</h2>
-        <div class="jobs-grid">
-          <!-- Job Card 1 -->
-          <div class="job-card">
-            <h3 class="job-title">Software Engineer</h3>
-            <p class="company-name">TechCorp Solutions</p>
-            <div class="job-details">
-              <span>📅 2-5 Yrs</span>
-              <span>📍 Bangalore</span>
-            </div>
-            <p class="job-skills">Java, Spring Boot, Microservices...</p>
-          </div>
 
-          <!-- Job Card 2 -->
-          <div class="job-card">
-            <h3 class="job-title">Product Manager</h3>
-            <p class="company-name">Innovate Inc</p>
-            <div class="job-details">
-              <span>📅 5-8 Yrs</span>
-              <span>📍 Mumbai</span>
-            </div>
-            <p class="job-skills">Roadmap, Agile, UX, Strategy...</p>
-          </div>
-
-          <!-- Job Card 3 -->
-          <div class="job-card">
-            <h3 class="job-title">Data Analyst</h3>
-            <p class="company-name">DataWiz Analytics</p>
-            <div class="job-details">
-              <span>📅 1-3 Yrs</span>
-              <span>📍 Delhi NCR</span>
-            </div>
-            <p class="job-skills">SQL, Python, PowerBI, Excel...</p>
-          </div>
-
-          <!-- Job Card 4 -->
-          <div class="job-card">
-            <h3 class="job-title">UX Designer</h3>
-            <p class="company-name">Creative Studio</p>
-            <div class="job-details">
-              <span>📅 3-6 Yrs</span>
-              <span>📍 Hyderabad</span>
-            </div>
-            <p class="job-skills">Figma, Adobe XD, User Research...</p>
-          </div>
-
-          <!-- Job Card 5 -->
-          <div class="job-card">
-            <h3 class="job-title">Frontend Developer</h3>
-            <p class="company-name">WebDevs Co</p>
-            <div class="job-details">
-              <span>📅 2-4 Yrs</span>
-              <span>📍 Pune</span>
-            </div>
-            <p class="job-skills">React, HTML, JavaScript, Redux...</p>
-          </div>
-
-          <!-- Job Card 6 -->
-          <div class="job-card">
-            <h3 class="job-title">Marketing Head</h3>
-            <p class="company-name">Growth Marketing</p>
-            <div class="job-details">
-              <span>📅 8-12 Yrs</span>
-              <span>📍 Chennai</span>
-            </div>
-            <p class="job-skills">SEO, SEM, Brand Management...</p>
-          </div>
+        <div id="no-jobs-message" class="no-jobs-container text-center">
+          <p class="no-jobs-text">No jobs listed currently.</p>
+          <button id="open-post-job-modal-2" class="btn btn-secondary hero-btn">
+            Post a Job
+          </button>
         </div>
 
-        <div class="text-center" style="margin-top: 40px;">
+        <div id="featured-jobs-container" class="jobs-grid">
+          <!-- Dynamic Job Cards will appear here -->
+        </div>
+
+        <div class="text-center view-all-container" id="view-all-btn-container">
           <button class="btn btn-primary">View all Companies</button>
         </div>
       </div>
     </section>
 
-    <!-- Premium Services -->
+    <hr style="border: 1px solid gray; opacity: 20%;" />
+
     <section class="section services-section">
       <div class="container">
         <h2 class="section-title text-center">
@@ -201,7 +148,6 @@
       </div>
     </section>
 
-    <!-- App Download -->
     <section class="section app-section">
       <div class="container">
         <div class="app-banner">
@@ -216,7 +162,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
@@ -266,5 +211,56 @@
         </div>
       </div>
     </footer>
+
+    <div id="job-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title" style="margin-bottom: 20px;">Post a New Job</h2>
+        <form id="job-form">
+          <input type="hidden" id="edit-job-id" />
+          <div class="form-group">
+            <label for="job-title">Job Title</label>
+            <input
+              type="text"
+              id="job-title"
+              required
+              placeholder="e.g. Software Engineer"
+            />
+          </div>
+          <div class="form-group">
+            <label for="company-name">Company Name</label>
+            <input
+              type="text"
+              id="company-name"
+              required
+              placeholder="e.g. TechCorp"
+            />
+          </div>
+          <div class="form-group">
+            <label for="job-location">Location</label>
+            <input
+              type="text"
+              id="job-location"
+              required
+              placeholder="e.g. Bangalore"
+            />
+          </div>
+          <div class="form-group">
+            <label for="job-description">Description</label>
+            <textarea
+              id="job-description"
+              rows="4"
+              required
+              placeholder="Job description..."
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Post Job
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
