@@ -1,178 +1,147 @@
-const modal = document.getElementById("job-modal");
-const openModalBtn = document.getElementById("open-post-job-modal");
-const openModalBtn2 = document.getElementById("open-post-job-modal-2");
-const closeModalSpan = document.querySelector(".close-modal");
-const jobForm = document.getElementById("job-form");
-const featuredJobsContainer = document.getElementById(
-  "featured-jobs-container",
-);
-const noJobsMessage = document.getElementById("no-jobs-message");
-const modalTitle = document.getElementById("modal-title");
-const editJobIdInput = document.getElementById("edit-job-id");
-const searchInput = document.getElementById("search-input");
-const searchBtn = document.getElementById("search-btn");
+const $ = (id) => document.getElementById(id);
+
+const modal = $("job-modal");
+const jobForm = $("job-form");
+const jobsContainer = $("featured-jobs-container");
+const noJobsMsg = $("no-jobs-message");
+const searchInput = $("search-input");
 const sectionTitle = document.querySelector(".featured-jobs .section-title");
 
-let jobs = [];
+let jobs = [
+  {
+    id: 1,
+    title: "Software Engineer",
+    company: "Google",
+    location: "Bangalore",
+    description: "Build scalable web applications using modern technologies.",
+  },
+  {
+    id: 2,
+    title: "Data Analyst",
+    company: "Amazon",
+    location: "Mumbai",
+    description: "Analyze large datasets and generate business insights.",
+  },
+];
+
+renderJobs();
 
 function openModal() {
-  modal.style.display = "block";
-  modalTitle.textContent = "Post a New Job";
+  $("modal-title").textContent = "Post a New Job";
+  $("edit-job-id").value = "";
   jobForm.reset();
-  editJobIdInput.value = "";
+  modal.style.display = "block";
 }
 
-openModalBtn.onclick = openModal;
-openModalBtn2.onclick = openModal;
-
-closeModalSpan.onclick = function () {
+function closeModal() {
   modal.style.display = "none";
+}
+
+$("open-post-job-modal").onclick = openModal;
+$("open-post-job-modal-2").onclick = openModal;
+document.querySelector(".close-modal").onclick = closeModal;
+window.onclick = (e) => {
+  if (e.target === modal) closeModal();
 };
 
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-// --- Search Functionality ---
+// Search
 function performSearch() {
-  const query = searchInput.value.trim().toLowerCase();
-
-  if (!query) {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) {
     sectionTitle.textContent = "Featured Jobs";
-    renderJobs(jobs);
-    return;
+    return renderJobs(jobs);
   }
-
-  const filtered = jobs.filter((job) => {
-    return (
-      job.title.toLowerCase().includes(query) ||
-      job.company.toLowerCase().includes(query) ||
-      job.location.toLowerCase().includes(query) ||
-      job.description.toLowerCase().includes(query)
-    );
-  });
-
+  const filtered = jobs.filter((j) =>
+    [j.title, j.company, j.location, j.description].some((val) =>
+      val.toLowerCase().includes(q),
+    ),
+  );
   sectionTitle.textContent = `Search Results (${filtered.length})`;
   renderJobs(filtered);
-  featuredJobsContainer.scrollIntoView({ behavior: "smooth" });
+  jobsContainer.scrollIntoView({ behavior: "smooth" });
 }
 
-searchBtn.addEventListener("click", performSearch);
-
-searchInput.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    performSearch();
-  }
-});
-
-searchInput.addEventListener("input", function () {
-  if (searchInput.value.trim() === "") {
+$("search-btn").onclick = performSearch;
+searchInput.onkeydown = (e) => {
+  if (e.key === "Enter") performSearch();
+};
+searchInput.oninput = () => {
+  if (!searchInput.value.trim()) {
     sectionTitle.textContent = "Featured Jobs";
     renderJobs(jobs);
   }
-});
+};
 
-// --- Job Form Submission ---
-jobForm.onsubmit = function (event) {
-  event.preventDefault();
-
-  const title = document.getElementById("job-title").value;
-  const company = document.getElementById("company-name").value;
-  const location = document.getElementById("job-location").value;
-  const description = document.getElementById("job-description").value;
-  const editId = editJobIdInput.value;
+// Post / Edit Job
+jobForm.onsubmit = (e) => {
+  e.preventDefault();
+  const data = {
+    title: $("job-title").value,
+    company: $("company-name").value,
+    location: $("job-location").value,
+    description: $("job-description").value,
+  };
+  const editId = $("edit-job-id").value;
 
   if (editId) {
-    const jobIndex = jobs.findIndex((job) => job.id === parseInt(editId));
-    if (jobIndex > -1) {
-      jobs[jobIndex] = {
-        ...jobs[jobIndex],
-        title,
-        company,
-        location,
-        description,
-      };
-    }
+    const i = jobs.findIndex((j) => j.id === +editId);
+    if (i > -1) jobs[i] = { ...jobs[i], ...data };
   } else {
-    const newJob = {
-      id: Date.now(),
-      title,
-      company,
-      location,
-      description,
-    };
-    jobs.push(newJob);
+    jobs.push({ id: Date.now(), ...data });
   }
 
   searchInput.value = "";
   sectionTitle.textContent = "Featured Jobs";
   renderJobs(jobs);
-  modal.style.display = "none";
+  closeModal();
   jobForm.reset();
-  featuredJobsContainer.scrollIntoView({ behavior: "smooth" });
+  jobsContainer.scrollIntoView({ behavior: "smooth" });
 };
 
-function renderJobs(jobList) {
-  if (jobList === undefined) jobList = jobs;
-  featuredJobsContainer.innerHTML = "";
+// Render Jobs
+function renderJobs(list = jobs) {
+  jobsContainer.innerHTML = "";
+  noJobsMsg.style.display = jobs.length ? "none" : "block";
 
-  if (jobs.length === 0) {
-    noJobsMessage.style.display = "block";
-  } else {
-    noJobsMessage.style.display = "none";
-  }
-
-  if (jobList.length === 0 && jobs.length > 0) {
-    featuredJobsContainer.innerHTML = `
-      <div class="no-results">
-        <p>No jobs match your search.</p>
-      </div>
-    `;
+  if (!list.length && jobs.length) {
+    jobsContainer.innerHTML =
+      '<div class="no-results"><p>No jobs match your search.</p></div>';
     return;
   }
 
-  jobList.forEach((job) => {
+  list.forEach((job) => {
     const card = document.createElement("div");
     card.className = "job-card";
-
     card.innerHTML = `
       <h3 class="job-title">${job.title}</h3>
       <p class="company-name">${job.company}</p>
-      <div class="job-details">
-        <span>📍 ${job.location}</span>
-      </div>
+      <div class="job-details"><span>📍 ${job.location}</span></div>
       <p class="job-skills">${job.description}</p>
       <div class="card-actions">
         <button class="btn btn-sm btn-edit" onclick="editJob(${job.id})">Edit</button>
         <button class="btn btn-sm btn-delete" onclick="deleteJob(${job.id})">Delete</button>
       </div>
     `;
-
-    featuredJobsContainer.appendChild(card);
+    jobsContainer.appendChild(card);
   });
 }
 
-window.editJob = function (id) {
+window.editJob = (id) => {
   const job = jobs.find((j) => j.id === id);
-  if (job) {
-    document.getElementById("job-title").value = job.title;
-    document.getElementById("company-name").value = job.company;
-    document.getElementById("job-location").value = job.location;
-    document.getElementById("job-description").value = job.description;
-    editJobIdInput.value = job.id;
-
-    modalTitle.textContent = "Edit Job Details";
-    modal.style.display = "block";
-  }
+  if (!job) return;
+  $("job-title").value = job.title;
+  $("company-name").value = job.company;
+  $("job-location").value = job.location;
+  $("job-description").value = job.description;
+  $("edit-job-id").value = job.id;
+  $("modal-title").textContent = "Edit Job Details";
+  modal.style.display = "block";
 };
 
-window.deleteJob = function (id) {
-  if (confirm("Are you sure you want to delete this job?")) {
-    jobs = jobs.filter((job) => job.id !== id);
-    searchInput.value = "";
-    sectionTitle.textContent = "Featured Jobs";
-    renderJobs(jobs);
-  }
+window.deleteJob = (id) => {
+  if (!confirm("Are you sure you want to delete this job?")) return;
+  jobs = jobs.filter((j) => j.id !== id);
+  searchInput.value = "";
+  sectionTitle.textContent = "Featured Jobs";
+  renderJobs(jobs);
 };

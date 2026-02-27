@@ -4,44 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JobHub - Find Your Dream Job</title>
+    <meta
+      name="description"
+      content="Discover thousands of job opportunities. Search by title, company, or location and land your dream role."
+    />
     <link rel="stylesheet" href="style.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <header class="header">
       <div class="container header-container">
-        <div class="logo">JobFinder</div>
+        <div class="logo"><span class="logo-icon">⚡</span>JobHub</div>
         <nav class="nav-links">
-          <a href="#">Jobs</a>
+          <a href="#" class="active">Jobs</a>
           <a href="#">Companies</a>
           <a href="#">Services</a>
           <a href="#">Resources</a>
         </nav>
         <div class="auth-buttons">
-          <!-- <button class="btn btn-outline">Login</button> -->
-          <!-- <button class="btn btn-secondary">Register</button> -->
-          <span class="divider">|</span>
           <a href="#" class="employer-link">For Employers</a>
+          <button id="open-post-job-modal" class="btn btn-primary btn-header">
+            + Post Job
+          </button>
         </div>
       </div>
     </header>
 
-    <div class="divider-line"></div>
-
-    <section class="hero-section text-center">
-      <div class="container">
-        <h1 class="hero-title">Find your dream job now</h1>
-        <p class="hero-subtitle">5 lakh+ jobs for you to explore</p>
-
-        <div class="hero-buttons">
-          <button id="open-post-job-modal" class="btn btn-secondary hero-btn">
-            + Post a Job
-          </button>
-          <button class="btn btn-outline hero-btn">See All Jobs</button>
-        </div>
+    <section class="hero-section">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div class="hero-badge">🔥 5 Lakh+ Active Jobs</div>
+        <h1 class="hero-title">
+          Find Your <span class="gradient-text">Dream Job</span> Today
+        </h1>
+        <p class="hero-subtitle">
+          Explore opportunities from top companies around the world
+        </p>
 
         <div class="search-box">
           <div class="search-icon">
@@ -68,6 +69,13 @@
             Search
           </button>
         </div>
+
+        <div class="hero-tags">
+          <span class="tag">Remote</span>
+          <span class="tag">Full-time</span>
+          <span class="tag">Internship</span>
+          <span class="tag">Part-time</span>
+        </div>
       </div>
     </section>
 
@@ -75,28 +83,34 @@
       <div class="container">
         <div class="categories-grid">
           <div class="category-card">
-            <div class="icon">💻</div>
-            <div class="label">Remote</div>
+            <div class="cat-icon">💻</div>
+            <div class="cat-label">Remote</div>
+            <div class="cat-count">12k+ jobs</div>
           </div>
           <div class="category-card">
-            <div class="icon">🏢</div>
-            <div class="label">MNC</div>
+            <div class="cat-icon">🏢</div>
+            <div class="cat-label">MNC</div>
+            <div class="cat-count">8k+ jobs</div>
           </div>
           <div class="category-card">
-            <div class="icon">📊</div>
-            <div class="label">Data Science</div>
+            <div class="cat-icon">📊</div>
+            <div class="cat-label">Data Science</div>
+            <div class="cat-count">5k+ jobs</div>
           </div>
           <div class="category-card">
-            <div class="icon">🏦</div>
-            <div class="label">Banking</div>
+            <div class="cat-icon">🏦</div>
+            <div class="cat-label">Banking</div>
+            <div class="cat-count">3k+ jobs</div>
           </div>
           <div class="category-card">
-            <div class="icon">⚙️</div>
-            <div class="label">Engineering</div>
+            <div class="cat-icon">⚙️</div>
+            <div class="cat-label">Engineering</div>
+            <div class="cat-count">15k+ jobs</div>
           </div>
           <div class="category-card">
-            <div class="icon">🚀</div>
-            <div class="label">Startup</div>
+            <div class="cat-icon">🚀</div>
+            <div class="cat-label">Startup</div>
+            <div class="cat-count">6k+ jobs</div>
           </div>
         </div>
       </div>
@@ -105,62 +119,81 @@
     <section class="section featured-jobs">
       <div class="container">
         <h2 class="section-title text-center">Featured Jobs</h2>
+        <p class="section-subtitle text-center">
+          Handpicked opportunities waiting for you
+        </p>
 
         <div id="no-jobs-message" class="no-jobs-container text-center">
-          <p class="no-jobs-text">No jobs listed currently.</p>
-          <button id="open-post-job-modal-2" class="btn btn-secondary hero-btn">
-            Post a Job
-          </button>
+          <div class="empty-state">
+            <span class="empty-icon">📭</span>
+            <p class="no-jobs-text">
+              No jobs listed yet. Be the first to post!
+            </p>
+            <button id="open-post-job-modal-2" class="btn btn-secondary">
+              + Post a Job
+            </button>
+          </div>
         </div>
 
         <div id="featured-jobs-container" class="jobs-grid">
           <!-- Dynamic Job Cards will appear here -->
         </div>
-
-        <div class="text-center view-all-container" id="view-all-btn-container">
-          <button class="btn btn-primary">View all Companies</button>
-        </div>
       </div>
     </section>
-
-    <hr style="border: 1px solid gray; opacity: 20%;" />
 
     <section class="section services-section">
       <div class="container">
-        <h2 class="section-title text-center">
-          Accelerate your job search with Premium Services
-        </h2>
+        <h2 class="section-title text-center">Premium Services</h2>
+        <p class="section-subtitle text-center">
+          Accelerate your career with our expert services
+        </p>
         <div class="services-grid">
           <div class="service-card">
+            <div class="service-icon">📝</div>
             <h3 class="service-title">Resume Writing</h3>
             <p class="service-desc">
-              Professionally written resume to get you noticed.
+              Professionally crafted resume to get you noticed by top
+              recruiters.
             </p>
-            <a href="#" class="service-link">Learn More ></a>
+            <a href="#" class="service-link">Learn More →</a>
           </div>
           <div class="service-card">
+            <div class="service-icon">⭐</div>
             <h3 class="service-title">Priority Applicant</h3>
-            <p class="service-desc">Be the first to be seen by recruiters.</p>
-            <a href="#" class="service-link">Learn More ></a>
+            <p class="service-desc">
+              Be the first to be seen and shortlisted by hiring managers.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
           </div>
           <div class="service-card">
-            <h3 class="service-title">Display Grade</h3>
-            <p class="service-desc">Stand out with a featured profile badge.</p>
-            <a href="#" class="service-link">Learn More ></a>
+            <div class="service-icon">🏅</div>
+            <h3 class="service-title">Profile Boost</h3>
+            <p class="service-desc">
+              Stand out with a featured profile badge and premium visibility.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section app-section">
+    <section class="section cta-section">
       <div class="container">
-        <div class="app-banner">
-          <div class="app-content">
-            <h2 class="app-title">Get the JobHub App</h2>
-            <p class="app-subtitle">
-              Apply to jobs on the go and get real-time job alerts.
+        <div class="cta-banner">
+          <div class="cta-content">
+            <h2 class="cta-title">Get the JobHub App</h2>
+            <p class="cta-subtitle">
+              Apply to jobs on the go. Get real-time alerts and never miss an
+              opportunity.
             </p>
-            <button class="btn app-btn">Check it out</button>
+            <div class="cta-buttons">
+              <button class="btn btn-cta">Download Now</button>
+              <button class="btn btn-cta-outline">Learn More</button>
+            </div>
+          </div>
+          <div class="cta-visual">
+            <div class="cta-glow"></div>
+            <div class="cta-phone">📱</div>
           </div>
         </div>
       </div>
@@ -170,8 +203,12 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-col">
-            <h3 class="footer-brand">JobHub</h3>
-            <p class="footer-text">Connect with us</p>
+            <h3 class="footer-brand">
+              <span class="logo-icon">⚡</span>JobHub
+            </h3>
+            <p class="footer-text">
+              Your gateway to career opportunities worldwide.
+            </p>
             <div class="social-links">
               <a href="#">Facebook</a>
               <a href="#">Twitter</a>
@@ -180,12 +217,12 @@
           </div>
 
           <div class="footer-col">
-            <h4 class="footer-heading">Information</h4>
+            <h4 class="footer-heading">Company</h4>
             <ul class="footer-links">
               <li><a href="#">About Us</a></li>
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Resources</a></li>
+              <li><a href="#">Blog</a></li>
             </ul>
           </div>
 
@@ -205,13 +242,13 @@
               <li><a href="#">Post Jobs</a></li>
               <li><a href="#">Access Database</a></li>
               <li><a href="#">Manage Responses</a></li>
-              <li><a href="#">Buy Online</a></li>
+              <li><a href="#">Pricing</a></li>
             </ul>
           </div>
         </div>
 
         <div class="footer-bottom text-center">
-          <p>&copy; 2026 Info Edge (India) Ltd. All rights reserved.</p>
+          <p>&copy; 2026 JobHub. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -219,7 +256,10 @@
     <div id="job-modal" class="modal">
       <div class="modal-content">
         <span class="close-modal">&times;</span>
-        <h2 id="modal-title" style="margin-bottom: 20px;">Post a New Job</h2>
+        <h2 id="modal-title">Post a New Job</h2>
+        <p class="modal-subtitle">
+          Fill in the details below to list a new position
+        </p>
         <form id="job-form">
           <input type="hidden" id="edit-job-id" />
           <div class="form-group">
@@ -258,7 +298,7 @@
               placeholder="Job description..."
             ></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <button type="submit" class="btn btn-primary btn-submit">
             Post Job
           </button>
         </form>
