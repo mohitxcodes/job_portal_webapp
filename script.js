@@ -9,6 +9,9 @@ const featuredJobsContainer = document.getElementById(
 const noJobsMessage = document.getElementById("no-jobs-message");
 const modalTitle = document.getElementById("modal-title");
 const editJobIdInput = document.getElementById("edit-job-id");
+const searchInput = document.getElementById("search-input");
+const searchBtn = document.getElementById("search-btn");
+const sectionTitle = document.querySelector(".featured-jobs .section-title");
 
 let jobs = [];
 
@@ -32,6 +35,46 @@ window.onclick = function (event) {
   }
 };
 
+// --- Search Functionality ---
+function performSearch() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (!query) {
+    sectionTitle.textContent = "Featured Jobs";
+    renderJobs(jobs);
+    return;
+  }
+
+  const filtered = jobs.filter((job) => {
+    return (
+      job.title.toLowerCase().includes(query) ||
+      job.company.toLowerCase().includes(query) ||
+      job.location.toLowerCase().includes(query) ||
+      job.description.toLowerCase().includes(query)
+    );
+  });
+
+  sectionTitle.textContent = `Search Results (${filtered.length})`;
+  renderJobs(filtered);
+  featuredJobsContainer.scrollIntoView({ behavior: "smooth" });
+}
+
+searchBtn.addEventListener("click", performSearch);
+
+searchInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    performSearch();
+  }
+});
+
+searchInput.addEventListener("input", function () {
+  if (searchInput.value.trim() === "") {
+    sectionTitle.textContent = "Featured Jobs";
+    renderJobs(jobs);
+  }
+});
+
+// --- Job Form Submission ---
 jobForm.onsubmit = function (event) {
   event.preventDefault();
 
@@ -63,13 +106,16 @@ jobForm.onsubmit = function (event) {
     jobs.push(newJob);
   }
 
-  renderJobs();
+  searchInput.value = "";
+  sectionTitle.textContent = "Featured Jobs";
+  renderJobs(jobs);
   modal.style.display = "none";
   jobForm.reset();
   featuredJobsContainer.scrollIntoView({ behavior: "smooth" });
 };
 
-function renderJobs() {
+function renderJobs(jobList) {
+  if (jobList === undefined) jobList = jobs;
   featuredJobsContainer.innerHTML = "";
 
   if (jobs.length === 0) {
@@ -78,7 +124,16 @@ function renderJobs() {
     noJobsMessage.style.display = "none";
   }
 
-  jobs.forEach((job) => {
+  if (jobList.length === 0 && jobs.length > 0) {
+    featuredJobsContainer.innerHTML = `
+      <div class="no-results">
+        <p>No jobs match your search.</p>
+      </div>
+    `;
+    return;
+  }
+
+  jobList.forEach((job) => {
     const card = document.createElement("div");
     card.className = "job-card";
 
@@ -116,6 +171,8 @@ window.editJob = function (id) {
 window.deleteJob = function (id) {
   if (confirm("Are you sure you want to delete this job?")) {
     jobs = jobs.filter((job) => job.id !== id);
-    renderJobs();
+    searchInput.value = "";
+    sectionTitle.textContent = "Featured Jobs";
+    renderJobs(jobs);
   }
 };

@@ -182,36 +182,32 @@ h6 {
 /* Search Box */
 .search-box {
   background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 8px 8px 8px 20px;
+  border-radius: 60px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  max-width: 1000px;
+  align-items: center;
+  gap: 12px;
+  max-width: 680px;
   margin: 0 auto;
+  transition: box-shadow 0.3s ease;
 }
 
-.search-field {
+.search-box:focus-within {
+  box-shadow: 0 10px 40px rgba(65, 105, 225, 0.25);
+}
+
+.search-icon {
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.search-box input {
   flex: 1;
-  text-align: left;
-}
-
-.search-field label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: darkgray;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-
-.search-field input,
-.search-field select {
-  width: 100%;
   border: none;
-  border-bottom: 1px solid lightgray;
-  padding: 8px 0;
+  padding: 12px 4px;
   font-size: 16px;
   color: darkslategray;
   outline: none;
@@ -219,14 +215,15 @@ h6 {
   background: transparent;
 }
 
-.search-field input:focus,
-.search-field select:focus {
-  border-bottom-color: royalblue;
+.search-box input::placeholder {
+  color: #bbb;
 }
 
 .search-btn {
-  padding: 12px 40px;
-  font-size: 16px;
+  padding: 12px 32px;
+  font-size: 15px;
+  border-radius: 50px;
+  flex-shrink: 0;
 }
 
 /* Categories Section */
@@ -620,4 +617,12 @@ h6 {
   background-color: white;
   color: darkslategray;
   border-color: white;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 0;
+  color: dimgray;
+  font-size: 16px;
 }
